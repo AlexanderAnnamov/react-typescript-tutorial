@@ -1,6 +1,7 @@
 import { CSSProperties, FC, ReactNode, ButtonHTMLAttributes,
          InputHTMLAttributes, AnchorHTMLAttributes, 
-         ComponentType} from "react"
+         ComponentType,
+         ComponentProps} from "react"
 
 interface Props<T, E> {
     // style
@@ -60,6 +61,8 @@ export const genericProps = <T extends string | number | { id: number }>({ lists
     });
 };
 
+// Restricting Props
+
 type RandomNumberType = {
     value: number
 }
@@ -88,4 +91,29 @@ export const RadomNumber = ({value, isZero, isNegative, isPositive}: RandomNumbe
     return <div>
         {value} {isZero && 'zero'} {isPositive && 'poziive'} { isNegative && 'negative'}
     </div>
+}
+
+// Literals and Exclude
+
+type HorizontalPosition = 'left' | 'center' | 'right'
+type VerticalPosition = 'top' | 'center' | 'bottom'
+
+type ToastProps = {
+    position: `${HorizontalPosition}-${VerticalPosition}`
+}
+
+export const Toast = ({ position }: ToastProps) => {
+    return <div>
+        {position}
+    </div>
+}
+
+// Extracting Component Props
+
+export const ToastNew = (props: ComponentProps<typeof Toast>) => {
+    return (
+        <div>
+            {props.position}
+        </div>
+    )
 }
